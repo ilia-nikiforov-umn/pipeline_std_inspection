@@ -20,9 +20,10 @@ def get_pairs_matching_criteria(types,files,term):
         project = ["meta.uuid","meta.runner.kimcode","meta.subject.kimcode"]
     results = raw_query(query={"meta.type":{"$in":types}}, fields = {"meta.uuid":1,"meta.runner.kimcode":1,"meta.runner.driver.kimcode":1,"meta.subject.kimcode":1}, limit=0, project=project,database='data')
     matching_pairs=[]
+    hits = 0
     with open("failed_requests.txt","w") as f:
         for i,result in enumerate(results):
-            print("Processing result %d of %d"%(i,len(results)),end="\r")
+            print("Processing result %d of %d, found %d matches"%(i,len(results),hits),end="\r")
             if type(files) is dict:
                 uuid,runner,subject,driver=result              
             else:
@@ -41,6 +42,7 @@ def get_pairs_matching_criteria(types,files,term):
                     output=requests.get(file_url).text
                     if output.find(term)!=-1:
                         matching_pairs.append([runner,subject])
+                        hits += 1
                         break
                 except:
                     print("Could not download file "+file_url)
