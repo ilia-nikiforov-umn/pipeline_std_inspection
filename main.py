@@ -15,11 +15,12 @@ LAMMPS = searchSpec(["er","tr"],
 CANT_ALLOC = searchSpec(["er"],["pipeline.stderr"],"Cannot allocate memory")
 CANT_ALLOC_VC = searchSpec(["vr"],["pipeline.stdout","pipeline.stderr","pipeline.exception"],"Cannot allocate memory")
 LAMMPS_NOT_BUILT = searchSpec(["er","vr"],["pipeline.stdout","pipeline.stderr","pipeline.exception"],"Unrecognized pair style")
-# LAMMPS not built with correct package     
+LAMMPS_PYTHON = searchSpec(["er","vr"],["pipeline.stdout","pipeline.stderr","pipeline.exception"],"No module named 'lammps'")
+# LAMMPS not built with correct package https://openkim.org/files/1759075555/VC_303890932454_005-and-SM_786004631953_001-1706203286-vr/pipeline.stdout
 # Other memory error https://openkim.org/files/TE_932922467790_000-and-SM_714124634215_000-1682711461-er/pipeline.stderr
 # Weird MPI error https://openkim.org/files/VC_561022993723_004-and-SM_333792531460_001-1667944648-er/pipeline.stderr
 # Too long https://openkim.org/files/TE_692192937218_004-and-MO_800536961967_002-1562949890-er/pipeline.stderr
-matching_pairs=get_pairs_matching_criteria(LAMMPS_NOT_BUILT.types,LAMMPS_NOT_BUILT.files,LAMMPS_NOT_BUILT.term)
-with open("matching_pairs_LAMMPS_NOT_BUILT.json","w") as f:
+matching_pairs=get_pairs_matching_criteria(LAMMPS_PYTHON.types,LAMMPS_PYTHON.files,LAMMPS_PYTHON.term)
+with open("matching_pairs_LAMMPS_PYTHON.json","w") as f:
     dump(matching_pairs,f)
 

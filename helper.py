@@ -37,7 +37,7 @@ def get_pairs_matching_criteria(types,files,term):
                     else:
                         continue
 
-                file_url="https://openkim.org/files/"+uuid+"/"+filename
+                file_url="https://openkim.org/files/1759075555/"+uuid+"/"+filename
                 try:
                     output=requests.get(file_url).text
                     if output.find(term)!=-1:
